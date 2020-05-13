@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ko">
+<%- include ('template/head') %>
+
+<body class="text-center">
+    <div class="cover-container d-flex w-100 h-50 p-3 mx-auto flex-column">
+        <%- include ('template/header') %>
+        <main role="main" class="inner cover "><br><br><br>
+            <ul class="row d-flex justify-content-center" style="border:1px solid bold">
+                <li id="decide" class="active col-md-3" style="list-style-type: none"
+                    onclick="changeChart()">
+                    확진자
+                </li>
+                <li id="death" class="col-md-3" style="list-style-type: none" onclick="changeChart()">
+                    사망자</li>
+                <li id="clean" class="col-md-3" style="list-style-type: none" onclick="changeChart()">
+                    격리해제
+                </li>
+                <li id="exam" class="col-md-3" style="list-style-type: none" onclick="changeChart()">
+                    검사진행</li>
+            </ul>
+            <br>
+            <div class="container">
+                <canvas id="myChart"></canvas>
+            </div>
+        </main>
+        <%- include ('template/footer') %>
+    </div>
+    <script>
+        var infectData;
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var WholeinfectData = [];
+        var labels = [];
+        var charts;
+        $.ajax({
+            url: "/getChartData",
+            type: "get",
+            dataType: "json",
+            success: function (ddata) {
+
+                WholeinfectData = ddata;
+                for (infectData of ddata) {
+                    // console.log(infectData);
+                    // console.log(infectData.createDt.substring(5, 7) + '월' + infectData.createDt.substring(8, 10) + '일');
+                    labels.push(infectData.createDt.substring(5, 7) + '월' + infectData.createDt.substring(8, 10) + '일');
+                }
+                var data = [];
+                var d;
+                for (d of WholeinfectData) {
+                    data.push(d.decideCnt);
+                }
+                makeChart(data, labels, "확진자");
+            }
+        });
+
+
+        function makeChart(person, labels, string) {
+            if (charts != null) {
+                charts.destroy();
+            }
+            charts = new Chart(ctx, { // 챠트 종류를 선택 
+                type: 'line',
+                // 챠트를 그릴 데이타 
+                data: {
+                    labels: labels,
+                    datasets: [
+
+                        {
+                            label: string,
+                            borderColor: 'PaleTurquoise',
+                            data: person
+                        }
+                    ]
+                },
+                options: {}
+            });
+            return charts;
+        }
+
+        function changeChart() {
+            var id = event.target.id;
+            //console.log(id)
+            var data = [];
+            switch (id) {
+                case 'decide':
+                    for (d of WholeinfectData) {
+                        data.push(d.decideCnt);
+                    }
+                    makeChart(data, labels, "확진자");
+                    break;
+                case 'death':
+                    for (d of WholeinfectData) {
+                        data.push(d.deathCnt);
+                    }
+                    makeChart(data, labels, "사망자");
+                    break;
+                case 'clean':
+                    for (d of WholeinfectData) {
+                        data.push(d.clearCnt);
+                    }
+                    makeChart(data, labels, "격리해제");
+                    break;
+                case 'exam':
+                    for (d of WholeinfectData) {
+                        data.push(d.examCnt);
+                    }
+                    makeChart(data, labels, "검사진행");
+                    break;
+            }
+        }
+    </script>
+    <script> 
+        $(document).ready(function() { 
+            $('li').click(function() { 
+                $('li').removeClass("active"); 
+                $(this).addClass("active"); 
+            }); 
+        }); 
+    </script>
+</body>
+
+</html>

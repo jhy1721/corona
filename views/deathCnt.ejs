@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>Corona chart</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/cover/">
+    <link href="css/app.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="css/cover.css" rel="stylesheet">
+  </head>
+
+  <body class="text-center">
+    <div class="cover-container d-flex w-100 h-50 p-3 mx-auto flex-column">
+    <header class="masthead mb-auto">
+        <div class="inner">
+        <h3 class="masthead-brand">Corona</h3>
+        <nav class="nav nav-masthead justify-content-center">
+            <a class="nav-link active" href="#">Home</a>
+            <a class="nav-link" href="#">Chart</a>
+            <a class="nav-link" href="#">Map</a>
+        </nav>
+        </div>
+    </header>
+    <main role="main" class="inner cover "><br><br><br>
+        <ul class="row d-flex justify-content-center">
+          <li class="col-md-3 text-light" style="list-style-type: none"><a href = "/decide">확진자</a></li> 
+          <li class="col-md-3 text-light active" style="list-style-type: none"><a href = "/death">사망자</a></li>
+          <li class="col-md-3 text-light" style="list-style-type: none"><a href = "/clear">격리해제</a></li>
+          <li class="col-md-3 text-light" style="list-style-type: none"><a href = "/exam">검사진행</a></li>
+        </ul><br>
+      </h1><br>
+      <p class="lead">
+        <div class="container">
+            <canvas id="myChart"></canvas>
+        </div>
+      </p>
+    </main>
+  <footer class="mastfoot mt-auto">
+    <div class="inner">
+    </div>
+  </footer>
+</div>
+<script> 
+    $(document).ready(function () {
+        var labels = [];
+        var infectData;
+        var dataperson = [];
+        $.ajax({
+            url: "/getChartData",
+            type: "get",
+            dataType: "json",
+            success: function(data){
+                for(infectData of data){
+                    console.log(infectData.createDt.substring(5, 7) + '월' + infectData.createDt.substring(8,10) + '일');
+                    labels.push(infectData.createDt.substring(5, 7) + '월' + infectData.createDt.substring(8,10) + '일');
+                    dataperson.push(infectData.deathCnt) 
+                }
+                console.log(data);
+                debugger;
+                var ctx = document.getElementById('myChart').getContext('2d'); 
+                var chart = new Chart(ctx, { // 챠트 종류를 선택 
+                    type: 'line', 
+                    // 챠트를 그릴 데이타 
+                    data: { 
+                        labels: labels, 
+                        datasets: [
+                                                                                                                     
+                            { 
+                                label: '사망자 수', 
+                                borderColor: 'PaleTurquoise', 
+                                data: dataperson
+                                
+                            }
+                        ] 
+                    }, 
+                    options: {} 
+                }); 
+            }
+        })
+    });
+</script>
+</body>
+</html>
