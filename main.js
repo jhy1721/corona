@@ -6,6 +6,7 @@ const router = require('./routers/router.js')
 
 
 app.use(express.static(__dirname+'/static'));
+app.use(express.static(__dirname+'/files'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.engine('html', ejs.renderFile);
