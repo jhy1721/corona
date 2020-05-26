@@ -1,56 +1,14 @@
 <!doctype html>
 <html lang="ko">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v3.8.6">
-    <title>Cover Template · Bootstrap</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/cover/">
-
-    <!-- Bootstrap core CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-    <!-- Custom styles for this template -->
-    <link href="css/cover.css" rel="stylesheet">
-  </head>
+  <%- include ('template/head') %>
   <body class="text-center">
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-  <header class="masthead mb-auto">
-    <div class="inner">
-      <h3 class="masthead-brand">Cover</h3>
-      <nav class="nav nav-masthead justify-content-center">
-        <a class="nav-link" href="/">Home</a>
-        <a class="nav-link" href="/chart">Chart</a>
-        <a class="nav-link active" href="/map">Map</a>
-      </nav>
-    </div>
-  </header>
-
+      <%- include ('template/header') %>
   <main role="main" class="inner cover">
     <h1 class="cover-heading">Cover your page.</h1>
     <div class="wrap"></div>
       <div class="tooltiptext" id="tooltip" style="text-shadow: none; text-align: center;">Tooltip text</div>
-      <svg style="width: 100%; height: auto; overflow:visible; z-index: 2;" onmousemove="handleMouseMove(event)" viewBox="-100 100 620 750" 
+      <svg onmousemove="handleMouseMove(event)" viewBox="-100 100 630 750" 
       preserveAspectRatio="xMaxYMax" xmlns="http://www.w3.org/2000/svg" 
       xmlns:amcharts="http://amcharts.com/ammap" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
 	<defs>
@@ -66,19 +24,23 @@
 
 
       #서울,#경기,#충남,#경남,#부산{
-        fill:#F2999A;
+        fill:#B2E1FF;
       }
 
       #경북{
-        fill:#EE5B59;
+        fill:#15A8DE;
       }
 
       #대구{
-        fill:#DB3736;
+        fill:#118AC9;
       }
 
-      #인천,#강원,#세종,#충북,#대전,#전북,#전남,#광주,#울산,#제주{
-        fill: #FAD2D3;
+      #인천,#강원,#충북,#대전,#광주,#울산{
+        fill: #BFBFBF
+      }
+
+      #세종,#전북,#전남,#제주{
+        fill: #EAECEB;
       }
 
 
@@ -101,12 +63,6 @@
         display: initial;
       }
 
-      @media(min-width: 700){
-        .land{
-          width: 100%;
-          height: auto;
-        }
-      }
 
 		</style>
 
@@ -142,30 +98,30 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script>
 
-
   function handleMouseMove(event) {
       var countryId = event.target.id;
       var tooltip = document.getElementById("tooltip");
+      var decideCnt;
+      var figure;
 
       switch (countryId) {
-        case "서울":
-        case "부산":
-        case "대구":
-        case "인천":
-        case "광주": 
-        case "대전": 
-        case "울산":  
-        case "경기": 
-        case "강원": 
-        case "충북": 
-        case "충남": 
-        case "전북": 
-        case "전남": 
-        case "경북":
-        case "경남":
-        case "제주": 
-        case "세종":
-          break;
+        case "서울": decideCnt=711; figure=4; break;
+        case "부산": decideCnt=144; figure=0; break;
+        case "대구": decideCnt=6865; figure=0; break;
+        case "인천": decideCnt=119; figure=12; break;
+        case "광주": decideCnt=30; figure=0; break;
+        case "대전": decideCnt=43; figure=0; break;
+        case "울산": decideCnt=45; figure=0; break;
+        case "경기": decideCnt=714; figure=6; break;
+        case "강원": decideCnt=55; figure=1; break;
+        case "충북": decideCnt=55; figure=3; break;
+        case "충남": decideCnt=144; figure=1; break;
+        case "전북": decideCnt=20; figure=0; break;
+        case "전남": decideCnt=17; figure=1; break;
+        case "경북": decideCnt=1368; figure=1; break;
+        case "경남": decideCnt=119; figure=0; break;
+        case "제주": decideCnt=14; figure=0; break;
+        case "세종": decideCnt=47; figure=0; break;
         default:
           return tooltip.classList.remove("active");
       }
@@ -175,18 +131,13 @@
 
       tooltip.style.left = (x + 20) + "px";
       tooltip.style.top = (y - 20) + "px";
-      tooltip.innerHTML = '<strong>'+countryId+'</strong>'+'<br>누적 확진환자: 637'+'<br>전일대비 증감:(0)';
+      tooltip.innerHTML = '<strong>'+countryId+'</strong>'+'<br>누적 확진확자: '+decideCnt+'<br>전일대비 증감: ('+figure+')'
       tooltip.classList.add("active");
-
     }
 </script>
 
   </main>
-
-  <footer class="mastfoot mt-auto">
-    <div class="inner">
-    </div>
-  </footer>
+  <%- include ('template/footer') %>
 </div>
 </body>
 </html>

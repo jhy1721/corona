@@ -7,8 +7,7 @@
         <%- include ('template/header') %>
         <main role="main" class="inner cover "><br><br><br>
             <ul class="row d-flex justify-content-center" style="border:1px solid bold">
-                <li id="decide" class="active col-md-3" style="list-style-type: none"
-                    onclick="changeChart()">
+                <li id="decide" class="active col-md-3" style="list-style-type: none" onclick="changeChart()">
                     확진자
                 </li>
                 <li id="death" class="col-md-3" style="list-style-type: none" onclick="changeChart()">
@@ -67,12 +66,30 @@
 
                         {
                             label: string,
-                            borderColor: 'PaleTurquoise',
+                            borderColor: 'yellow',
                             data: person
                         }
                     ]
                 },
-                options: {}
+                options: {
+                    legend: {
+                        labels: {
+                            fontColor: "white"
+                        }
+                    },
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                fontColor: "white",
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                fontColor: "white"
+                            }
+                        }]
+                    }
+                }
             });
             return charts;
         }
@@ -109,14 +126,15 @@
             }
         }
     </script>
-    <script> 
-        $(document).ready(function() { 
-            $('li').click(function() { 
-                $('li').removeClass("active"); 
-                $(this).addClass("active"); 
-            }); 
+    <script>
+        $(document).ready(function () {
+            $('li').click(function () {
+                $('li').removeClass("active");
+                $(this).addClass("active");
+            });
         }); 
     </script>
+    <a href = "CoronaData.xlsx" download>chartdata</a>
 </body>
 
 </html>
