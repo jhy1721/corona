@@ -5,3 +5,74 @@ li:active {
 .active {
     color: yellow;
 }
+
+.land
+{
+    fill-opacity: 1;
+    stroke:white;
+    stroke-opacity: 1;
+    stroke-width:1;
+}
+
+#서울,#경기,#충남,#경남,#부산{
+fill:#B2E1FF;
+}
+
+#경북{
+fill:#15A8DE;
+}
+
+#대구{
+fill:#118AC9;
+}
+
+#인천,#강원,#충북,#대전,#광주,#울산{
+fill: #BFBFBF;
+}
+
+#세종,#전북,#전남,#제주{
+fill: #EAECEB;
+}
+
+.tooltiptext {
+
+display: none;
+font-family: 'Noto Sans KR', '맑은고딕', 'Malgun Gothic', '돋움', 'Dotum', sans-serif;
+z-index: 1;
+position: absolute;
+border: 0 none;
+border-radius: 4px 4px 4px 4px;
+background-color: white;
+color: #000000;
+padding: 5px;
+text-align: left;
+font-size: 14px;
+}
+
+.tooltiptext.active {
+display: initial;
+}
+
+
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0 1.5rem;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+ .card-header{
+  color: #333;
+  font-weight: bold;
+ }
+
+ .card-text{
+  color: #333;
+  font-size: 14.7px;
+ }

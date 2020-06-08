@@ -14,7 +14,7 @@ if(mm<10) {
 today = yyyy+mm+dd;
 
 
-const HOST = `http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson?serviceKey=${YOUR_SERVICE_KEY}&numOfRows=10000&startCreateDt=20200310&endCreateDt=20200315&`
+const HOST = ``
 
 
 function RemoveJsonTextAttribute(value,parentElement){

@@ -46,9 +46,23 @@ router.get('/getChartData', function (req, res) {
     res.json((result));
 });
 
+(async () => {
+    await client.lrange('list2', 0, -1, (err, data2) => {
+        test2data = data2;
+    });
+})();
 
-router.get('/asdf', function (req, res) {
-    res.render('test2.ejs')
+router.get('/getCountryData', function(req, res) {
+    var data;
+    for(data of test2data){
+        var t = JSON.parse(data);
+    }
+    res.json((data));
+});
+
+
+router.get('/', function (req, res) {
+    res.render('home.ejs')
 });
 
 router.get('/getData', function (req, res) {

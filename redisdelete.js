@@ -10,4 +10,12 @@ exports.redisdelete = function(){
          console.log("Cannot delete")
         }
      })
+
+     client.del('list2', function(err, response) {
+      if (response == 1) {
+         console.log("Deleted Successfully!")
+      } else{
+       console.log("Cannot delete")
+      }
+   })
 }

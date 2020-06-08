@@ -4,7 +4,17 @@
 
 <body class="text-center">
     <div class="cover-container d-flex w-100 h-50 p-3 mx-auto flex-column">
-        <%- include ('template/header') %>
+        <header class="masthead mb-auto">
+            <div class="inner">
+                <h3 class="masthead-brand">Corona</h3>
+                <nav class="nav nav-masthead justify-content-center">
+                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link active" href="chart">Chart</a>
+                    <a class="nav-link" href="/map">Map</a>
+                    <a class="nav-link" href="/mask">Mask</a>
+                </nav>
+            </div>
+        </header>
         <main role="main" class="inner cover "><br><br><br>
             <ul class="row d-flex justify-content-center" style="border:1px solid bold">
                 <li id="decide" class="active col-md-3" style="list-style-type: none" onclick="changeChart()">
@@ -134,7 +144,7 @@
             });
         }); 
     </script>
-    <a href = "CoronaData.xlsx" download>chartdata</a>
+    <a href="CoronaData.xlsx" download>chartdata</a>
 </body>
 
 </html>
