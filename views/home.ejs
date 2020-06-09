@@ -1,84 +1,120 @@
 <!doctype html>
 <html lang="ko">
 <%- include ('template/head') %>
-
 <body class="text-center">
-    <div class="cover-container d-flex w-100 h-50 p-3 mx-auto flex-column">
-        <header class="masthead mb-auto">
-            <div class="inner">
-                <h3 class="masthead-brand">Corona</h3>
-                <nav class="nav nav-masthead justify-content-center">
-                    <a class="nav-link active" href="/">Home</a>
-                    <a class="nav-link" href="/chart">Chart</a>
-                    <a class="nav-link" href="/map">Map</a>
-                    <a class="nav-link" href="/mask">Mask</a>
-                </nav>
-            </div>
-        </header>
+  <div class="cover-container d-flex w-100 h-50 p-3 mx-auto flex-column">
+    <header class="masthead mb-auto">
+      <div class="inner">
+        <h3 class="masthead-brand">Corona</h3>
+        <nav class="nav nav-masthead justify-content-center">
+          <a class="nav-link active" href="/">Home</a>
+          <a class="nav-link" href="/chart">Chart</a>
+          <a class="nav-link" href="/map">Map</a>
+          <a class="nav-link" href="/mask">Mask</a>
+        </nav>
+      </div>
+    </header>
 
-  <main role="main" class="inner cover">
-    <div class="box">
-      <p>대한민국 현황</p>
-      <table border = "1">
-        <thead>
-          <tr>
-            <th>확진자 </th>
-            <th>사망자</th>
-            <th>발생률</th>
-            <th>전일대비 증가</th>
-            <th>해외 유입</th>
-            <th>국내 발생</th>
-            <th>격리해제</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <span id="korea1" style="font-weight: bold;"></span>
-            </td>
-            <td>
-              <span id="korea2" style="font-weight: bold;"></span>
-            </td>
-            <td>
-              <span id="korea3" style="font-weight: bold;"></span>
-            </td>
-            <td>
-              <span id="korea4" style="font-weight: bold;"></span>
-            </td>
-            <td>
-              <span id="korea1_1_1" style="font-weight: bold;"></span>
-            </td>
-            <td>
-              <span id="korea1_1_2" style="font-weight: bold;"></span>
-            </td>
-            <td>
-              <span id="korea1_1" style="font-weight: bold;"></span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <main role="main" class="inner cover">
+      <div class="box">
+        <p>대한민국 현황</p>
+        <table border="1">
+          <thead>
+            <tr>
+              <th>확진자 </th>
+              <th>전일대비 증가</th>
+              <th>격리해제</th>
+              <th>사망자</th>
+              <th>발생율</th>
+              <th>해외 유입</th>
+              <th>국내 발생</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <span id="totalinfected" style="font-weight: bold;"></span>
+              </td>
+              <td>
+                <span id="newinfected" style="font-weight: bold;"></span>
+              </td>
+              <td>
+                <span id="recoveredNum" style="font-weight: bold;"></span>
+              </td>
+              <td>
+                <span id="deathNum" style="font-weight: bold;"></span>
+              </td>
+              <td>
+                <span id="percentage" style="font-weight: bold;"></span>
+              </td>
+              <td>
+                <span id="fromforeign" style="font-weight: bold;"></span>
+              </td>
+              <td>
+                <span id="fromdomestic" style="font-weight: bold;"></span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <img
+          src="http://blogfiles.naver.net/MjAyMDAyMjZfNTYg/MDAxNTgyNjk5MDY1MzU4.3dwYYTn_cbMAs1H9qxjKdUKZ4MzKQzh5GnlyVxwTuLcg.vIpnCkM-FFRzo9CDJZVuW21KxJNqGor9hH-pfkKJo9Ig.JPEG.9452166/%C4%DA%B7%CE%B3%AA_19.JPG" />
+      </div>
+    </main>
   </div>
-  </main>
-</div>
-<script>
-  $.ajax({
-            url: "/getCountryData",
-            type: "get",
-            dataType: "json",
-            success: function (data) {
-              var ddata=JSON.parse(data);
+  <script>
+    $.ajax({
+      url: "/getCountryData",
+      type: "get",
+      dataType: "json",
+      success: function (data) {
+        var ddata = JSON.parse(data);
 
-              document.getElementById("korea1").innerHTML=ddata.korea.totalCase;
-              document.getElementById("korea1_1").innerHTML=ddata.korea.newCase;
-              document.getElementById("korea2").innerHTML=ddata.korea.recovered;
-              document.getElementById("korea3").innerHTML=ddata.korea.death;
-              document.getElementById("korea4").innerHTML=ddata.korea.percentage;
-              document.getElementById("korea1_1_1").innerHTML=ddata.korea.newFcase;
-              document.getElementById("korea1_1_2").innerHTML=ddata.korea.newCcase;
+        document.getElementById("totalinfected").innerHTML = ddata.korea.totalCase;
+        document.getElementById("newinfected").innerHTML = ddata.korea.newCase;
+        document.getElementById("recoveredNum").innerHTML = ddata.korea.recovered;
+        document.getElementById("deathNum").innerHTML = ddata.korea.death;
+        document.getElementById("percentage").innerHTML = ddata.korea.percentage;
+        document.getElementById("fromforeign").innerHTML = ddata.korea.newFcase;
+        document.getElementById("fromdomestic").innerHTML = ddata.korea.newCcase;
 
 
-            }
-        });
-</script>
+
+      }
+    });
+  </script>
+  <Style>
+    table {
+      width: 650px;
+      height: 150px;
+      position: relative;
+      left: 0px;
+      top: 1px;
+
+      font-size: 20px;
+
+      table-layout: fixed;
+      padding: 5px;
+      border-collapse: collapse;
+      word-break: break-all;
+    }
+
+    table th {
+      background-color: blue;
+      color: #fff;
+
+    }
+
+    table td {
+      background-color: lightslategrey;
+    }
+
+    img {
+      width: 650px;
+      height: 550px;
+      position: relative;
+      top: 0px;
+    }
+  </Style>
 </body>
+
 </html>
